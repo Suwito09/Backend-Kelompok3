@@ -4,14 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Foundation\Auth\User as Authenticatable;  // <-- ini yang benar
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Users extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject
 {
-    // Tentukan tabel yang digunakan
     protected $table = 'users';
 
-    // Kolom yang bisa diisi secara massal
     protected $fillable = [
         'name',
         'email',
@@ -20,7 +18,6 @@ class Users extends Authenticatable implements JWTSubject
         'created_at',
     ];
 
-    // Sembunyikan kolom password saat output JSON
     protected $hidden = [
         'password',
     ];
@@ -35,10 +32,8 @@ class Users extends Authenticatable implements JWTSubject
         return [];
     }
 
-    // Nonaktifkan timestamps otomatis Laravel jika ingin mengatur created_at manual
     public $timestamps = false;
 
-    // Jika Anda ingin melakukan casting tipe data tertentu
     protected $casts = [
         'created_at' => 'datetime',
     ];
