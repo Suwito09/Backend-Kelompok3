@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -42,9 +43,14 @@ class AuthController extends Controller
         }
 
         $user = auth()->user();
+        $ttlMinutes = JWTAuth::factory()->getTTL();          // TTL dalam menit
+        $expiresIn  = $ttlMinutes * 60;                      // Konversi ke detik
+        $expiredAt  = Carbon::now()->addSeconds($expiresIn); // Timestamp kedaluwarsa
 
         return response()->json([
             'token' => $token,
+            'expires_in' => $expiresIn,
+            'expires_at' => $expiredAt->toIso8601String(),
             'role' => $user->role,
             'message' => 'Login successful as ' . $user->role,
         ]);
