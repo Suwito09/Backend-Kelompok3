@@ -24,7 +24,7 @@ class ItemController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'location' => 'required|integer',
+            'location' => 'required|string|max:255',
             'image' => 'required|string|max:255',
             'type' => 'required|string|max:255',
         ]);
@@ -33,7 +33,6 @@ class ItemController extends Controller
 
         $validated['user_id'] = $user->id;
         $validated['status'] = 'pending';
-        $validated['created_at'] = now();
 
         $item = Item::create($validated);
 

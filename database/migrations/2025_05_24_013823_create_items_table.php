@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('type', ['lost', 'found']);
             $table->enum('status', ['pending', 'returned', 'resolved']);
             $table->datetime('created_at');
+            $table->datetime('updated_at');
         });
     }
 

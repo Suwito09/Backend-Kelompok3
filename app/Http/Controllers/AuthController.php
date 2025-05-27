@@ -43,9 +43,9 @@ class AuthController extends Controller
         }
 
         $user = auth()->user();
-        $ttlMinutes = JWTAuth::factory()->getTTL();          // TTL dalam menit
-        $expiresIn  = $ttlMinutes * 60;                      // Konversi ke detik
-        $expiredAt  = Carbon::now()->addSeconds($expiresIn); // Timestamp kedaluwarsa
+        $ttlMinutes = JWTAuth::factory()->getTTL();
+        $expiresIn  = $ttlMinutes * 60;
+        $expiredAt  = Carbon::now()->addSeconds($expiresIn);
 
         return response()->json([
             'token' => $token,

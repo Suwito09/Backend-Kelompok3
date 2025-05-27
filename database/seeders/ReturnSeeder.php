@@ -27,6 +27,7 @@ class ReturnSeeder extends Seeder
                 'proof'         => "Test Proof ({$status})",
                 'status'        => $status,
                 'created_at'    => $now,
+                'updated_at'    => $now,
             ];
         }
         DB::table('returns')->insert($items);

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('proof');
             $table->enum('status', ['pending', 'approved', 'rejected']);
             $table->datetime('created_at');
+            $table->datetime('updated_at');
         });
     }
 

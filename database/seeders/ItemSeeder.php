@@ -29,6 +29,7 @@ class ItemSeeder extends Seeder
                     'type'       => $type,
                     'status'     => $status,
                     'created_at' => $now,
+                    'updated_at' => $now,
                 ];
             }
         }
