@@ -36,7 +36,11 @@ class ItemController extends Controller
 
         $item = Item::create($validated);
 
-        return response()->json($item, 201);
+        return response()->json([
+            'success' => true,
+            'message' => 'Item created successfully.',
+            'data' => $item,
+        ], 201);
     }
 
     /**
@@ -53,16 +57,20 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'location' => 'required|integer',
-            'image' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
+            'name' => 'sometimes|string|max:255',
+            'description' => 'sometimes|string|max:255',
+            'location' => 'sometimes|string|max:255',
+            'image' => 'sometimes|string|max:255',
+            'type' => 'sometimes|string|max:255',
         ]);
 
         $item->update($validated);
 
-        return response()->json($item);
+        return response()->json([
+            'success' => true,
+            'message' => 'Item updated successfully.',
+            'data' => $item,
+        ], 201);
     }
 
     /**
@@ -72,6 +80,9 @@ class ItemController extends Controller
     {
         $item->delete();
 
-        return response()->json(['message' => 'Item deleted successfully.']);
+        return response()->json([
+            'success' => true,
+            'message' => 'Item deleted successfully.',
+        ]);
     }
 }
