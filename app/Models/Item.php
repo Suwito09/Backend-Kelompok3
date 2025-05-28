@@ -15,4 +15,19 @@ class Item extends Model
         'type',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function return()
+    {
+        return $this->hasMany(ReturnModel::class);
+    }
+
+    public function chat()
+    {
+        return $this->hasMany(Chat::class);
+    }
 }

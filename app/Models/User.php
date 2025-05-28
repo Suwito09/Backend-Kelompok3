@@ -22,6 +22,12 @@ class User extends Authenticatable implements JWTSubject
         'password',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
+    public $timestamps = false;
+
     public function getJwtIdentifier()
     {
         return $this->getKey();
@@ -32,9 +38,23 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public $timestamps = false;
+    public function item()
+    {
+        return $this->hasMany(Item::class);
+    }
 
-    protected $casts = [
-        'created_at' => 'datetime',
-    ];
+    public function return()
+    {
+        return $this->hasMany(ReturnModel::class);
+    }
+
+    public function sendMessages()
+    {
+        return $this->hasMany(Chat::class, 'sender_id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Chat::class, 'receiver_id');
+    }
 }
