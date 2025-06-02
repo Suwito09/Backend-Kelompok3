@@ -3,17 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Http\Controllers\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ItemController extends Controller
 {
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Item::all();
+        $items = Item::all();
+
+        return $this->successResponse(
+            $items,
+            'Items retrieved successfully.'
+        );
     }
 
     /**
@@ -36,11 +43,11 @@ class ItemController extends Controller
 
         $item = Item::create($validated);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Item created successfully.',
-            'data' => $item,
-        ], 201);
+        return $this->successResponse(
+            $item,
+            'Item created successfully.',
+            201
+        );
     }
 
     /**
@@ -48,7 +55,10 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        return response()->json($item);
+        return $this->successResponse(
+            $item,
+            'Item retrieved successfully.'
+        );
     }
 
     /**
@@ -66,11 +76,11 @@ class ItemController extends Controller
 
         $item->update($validated);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Item updated successfully.',
-            'data' => $item,
-        ], 201);
+        return $this->successResponse(
+            $item,
+            'Item updated successfully.',
+            201
+        );
     }
 
     /**
@@ -80,9 +90,9 @@ class ItemController extends Controller
     {
         $item->delete();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Item deleted successfully.',
-        ]);
+        return $this->successResponse(
+            null,
+            'Item deleted successfully.'
+        );
     }
 }
