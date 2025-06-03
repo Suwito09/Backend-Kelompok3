@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreReturnRequest;
 use App\Models\ReturnModel;
 use App\Http\Controllers\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -38,21 +39,16 @@ class ReturnController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, string $id)
+    public function store(StoreReturnRequest $request, string $id)
     {
-        $validated = $request->validate([
-            'full_name' => 'required|string|max:255',
-            'student_number' => 'required|integer|max:12',
-            'proof' => 'required|string|max:255',
-        ]);
-
         $user = JWTAuth::parseToken()->authenticate();
 
-        $validated['item_id'] = $id;
-        $validated['user_id'] = $user->id;
-        $validated['status'] = 'pending';
+        $payload = $request->validated();
+        $payload['item_id'] = $id;
+        $payload['user_id'] = $user->id;
+        $payload['status'] = 'pending';
 
-        $return = ReturnModel::create($validated);
+        $return = ReturnModel::create($payload);
 
         return $this->successResponse(
             $return,
@@ -64,15 +60,10 @@ class ReturnController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ReturnModel $return)
+    public function update(StoreReturnRequest $request, ReturnModel $return)
     {
-        $validated = $request->validate([
-            'full_name' => 'required|string|max:255',
-            'student_number' => 'required|integer|max:12',
-            'proof' => 'required|string|max:255',
-        ]);
-
-        $return->update($validated);
+        $payload = $request->validated();
+        $return->update($payload);
 
         return $this->successResponse(
             $return,

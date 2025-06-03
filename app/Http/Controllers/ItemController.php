@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreItemRequest;
 use App\Models\Item;
 use App\Http\Controllers\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -37,22 +38,15 @@ class ItemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreItemRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'image' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-        ]);
-
         $user = JWTAuth::parseToken()->authenticate();
 
-        $validated['user_id'] = $user->id;
-        $validated['status'] = 'pending';
+        $payload = $request->validated();
+        $payload['user_id'] = $user->id;
+        $payload['status'] = 'pending';
 
-        $item = Item::create($validated);
+        $item = Item::create($payload);
 
         return $this->successResponse(
             $item,
@@ -66,15 +60,9 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        $validated = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'description' => 'sometimes|string|max:255',
-            'location' => 'sometimes|string|max:255',
-            'image' => 'sometimes|string|max:255',
-            'type' => 'sometimes|string|max:255',
-        ]);
+        $payload = $request->validated();
 
-        $item->update($validated);
+        $item->update($payload);
 
         return $this->successResponse(
             $item,
