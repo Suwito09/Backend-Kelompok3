@@ -18,7 +18,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::put('user', [UserManagementController::class, 'update']);
     Route::get('user', [UserManagementController::class, 'show']);
+    Route::post('return/{id}', [ReturnController::class, 'store']);
     Route::apiResource('item', ItemController::class);
-    Route::apiResource('return', ReturnController::class);
+    Route::apiResource('return', ReturnController::class)->except('store');
     Route::apiResource('chat' , ChatController::class);
 });
