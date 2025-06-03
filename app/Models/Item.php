@@ -6,14 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $fillable = [
-        'user_id',
-        'name',
-        'description',
-        'location',
-        'image',
-        'type',
-        'status',
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
     ];
 
     public function user()

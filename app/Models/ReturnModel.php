@@ -6,13 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReturnModel extends Model
 {
-    protected $fillable = [
-        'item_id',
-        'user_id',
-        'full_name',
-        'student_number',
-        'proof',
-        'status',
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
     ];
 
     public function item()

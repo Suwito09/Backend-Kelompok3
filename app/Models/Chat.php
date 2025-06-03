@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Chat extends Model
 {
-    protected $fillable = [
-        'sender_id',
-        'receiver_id',
-        'message',
+    protected $guarded = [
+        'id',
+        'item_id',
+        'created_at',
+        'updated_at'
     ];
 
     public function item() {
