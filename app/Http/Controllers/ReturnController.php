@@ -46,7 +46,7 @@ class ReturnController extends Controller
         $payload = $request->validated();
         $payload['item_id'] = $id;
         $payload['user_id'] = $user->id;
-        $payload['status'] = 'pending';
+        $payload['status'] = ReturnModel::STATUS_PENDING;
 
         $return = ReturnModel::create($payload);
 

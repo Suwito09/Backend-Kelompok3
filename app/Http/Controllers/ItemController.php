@@ -44,7 +44,7 @@ class ItemController extends Controller
 
         $payload = $request->validated();
         $payload['user_id'] = $user->id;
-        $payload['status'] = 'pending';
+        $payload['status'] = Item::STATUS_PENDING;
 
         $item = Item::create($payload);
 

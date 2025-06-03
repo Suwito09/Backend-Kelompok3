@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
+    const TYPE_LOST = 'lost';
+    const TYPE_FOUND = 'found';
+    const STATUS_PENDING = 'pending';
+    const STATUS_ACCEPTED = 'accepted';
+    const STATUS_REJECTED = 'rejected';
     protected $guarded = [
         'id',
         'created_at',
