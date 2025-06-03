@@ -24,6 +24,17 @@ class ItemController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Item $item)
+    {
+        return $this->successResponse(
+            $item,
+            'Item retrieved successfully.'
+        );
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -47,17 +58,6 @@ class ItemController extends Controller
             $item,
             'Item created successfully.',
             201
-        );
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Item $item)
-    {
-        return $this->successResponse(
-            $item,
-            'Item retrieved successfully.'
         );
     }
 

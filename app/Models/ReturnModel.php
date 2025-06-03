@@ -13,8 +13,6 @@ class ReturnModel extends Model
         'student_number',
         'proof',
         'status',
-        'created_at',
-        'updated_at',
     ];
 
     public function item()

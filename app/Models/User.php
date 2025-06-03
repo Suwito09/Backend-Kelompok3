@@ -48,7 +48,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(ReturnModel::class);
     }
 
-    public function sendMessages()
+    public function sentMessages()
     {
         return $this->hasMany(Chat::class, 'sender_id');
     }
