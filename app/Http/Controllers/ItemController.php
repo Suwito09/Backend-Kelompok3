@@ -58,7 +58,7 @@ class ItemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Item $item)
+    public function update(StoreItemRequest $request, Item $item)
     {
         $payload = $request->validated();
 
