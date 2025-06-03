@@ -11,13 +11,14 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::prefix('admin')->middleware(['auth:api', 'check.admin'])->group(function () {
-    Route::apiResource('user', UserManagementController::class)->except('update');
+    Route::apiResource('user', UserManagementController::class)->only('index', 'destroy');
 });
 
 Route::middleware(['auth:api'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::put('user', [UserManagementController::class, 'update']);
+    Route::get('user', [UserManagementController::class, 'show']);
     Route::apiResource('item', ItemController::class);
-    Route::apiResource('user', UserManagementController::class)->only('show', 'update');
     Route::apiResource('return', ReturnController::class);
     Route::apiResource('chat' , ChatController::class);
 });
