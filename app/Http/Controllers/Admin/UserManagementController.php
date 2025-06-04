@@ -27,10 +27,15 @@ class UserManagementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show()
     {
+        $user = auth()->user();
+
+        $payload['name'] = $user->name;
+        $payload['email'] = $user->email;
+
         return $this->successResponse(
-            $user,
+            $payload,
             'User retrieved successfully.'
         );
     }

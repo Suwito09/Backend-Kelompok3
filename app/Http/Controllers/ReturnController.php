@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReturnRequest;
+use App\Http\Requests\UpdateStatusItemRequest;
 use App\Models\ReturnModel;
 use App\Http\Controllers\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class ReturnController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReturnRequest $request, string $id)
+    public function store(StoreReturnRequest $request, int $id)
     {
         $user = JWTAuth::parseToken()->authenticate();
 
@@ -68,6 +69,18 @@ class ReturnController extends Controller
         return $this->successResponse(
             $return,
             'Return updated successfully.',
+            201
+        );
+    }
+
+    public function updateStatus(UpdateStatusItemRequest $request, ReturnModel $return)
+    {
+        $payload = $request->validated();
+        $return->update($payload);
+
+        return $this->successResponse(
+            null,
+            'Return status updated successfully.',
             201
         );
     }

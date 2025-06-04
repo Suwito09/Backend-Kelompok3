@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreItemRequest;
+use App\Http\Requests\UpdateStatusItemRequest;
 use App\Models\Item;
 use App\Http\Controllers\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -67,6 +68,18 @@ class ItemController extends Controller
         return $this->successResponse(
             $item,
             'Item updated successfully.',
+            201
+        );
+    }
+
+    public function updateStatus(UpdateStatusItemRequest $request, Item $item)
+    {
+        $payload = $request->validated();
+        $item->update($payload);
+
+        return $this->successResponse(
+            null,
+            'Item status updated successfully.',
             201
         );
     }
