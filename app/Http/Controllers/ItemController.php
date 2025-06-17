@@ -41,9 +41,17 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
-        $user = JWTAuth::parseToken()->authenticate();
-
+        $user = JWTAuth::parseToken()->authenticate();    
         $payload = $request->validated();
+
+    // Upload gambar
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/items', $filename); // menyimpan di storage/app/public/items
+            $payload['image'] = 'storage/items/' . $filename; // agar bisa diakses via URL
+        }
+
         $payload['user_id'] = $user->id;
         $payload['status'] = Item::STATUS_PENDING;
 

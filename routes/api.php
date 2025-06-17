@@ -18,7 +18,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::put('user', [UserManagementController::class, 'update']);
     Route::get('user', [UserManagementController::class, 'show']);
-    Route::post('item/{id}/status', [ItemController::class, 'updateStatus']);
+    Route::post('item/{item}/status', [ItemController::class, 'updateStatus']);
     Route::post('return/{id}', [ReturnController::class, 'store']);
     Route::post('return/{id}/status', [ReturnController::class, 'updateStatus']);
     Route::apiResource('item', ItemController::class);
