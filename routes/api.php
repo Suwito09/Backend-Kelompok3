@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\ReturnController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('register', [AuthController::class, 'register']);
@@ -19,9 +18,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('user', [UserManagementController::class, 'update']);
     Route::get('user', [UserManagementController::class, 'show']);
     Route::post('item/{item}/status', [ItemController::class, 'updateStatus']);
-    Route::post('return/{id}', [ReturnController::class, 'store']);
-    Route::post('return/{id}/status', [ReturnController::class, 'updateStatus']);
+    Route::post('chat/{id}', [ChatController::class, 'store']);
     Route::apiResource('item', ItemController::class);
-    Route::apiResource('return', ReturnController::class)->except('store');
     Route::apiResource('chat' , ChatController::class);
 });
