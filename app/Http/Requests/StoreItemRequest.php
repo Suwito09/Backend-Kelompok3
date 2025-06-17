@@ -14,7 +14,7 @@ class StoreItemRequest extends FormRequest
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'location' => 'required|string|max:255',
-            'image' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'type' => ['required', new Enum(ItemType::class)],
         ];
     }
