@@ -47,10 +47,19 @@ class ChatController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function showCommentsByItem(int $item_id)
     {
-        //
+        $comments = Chat::with('user') // menampilkan data user yang berkomentar
+                    ->where('item_id', $item_id)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+
+        return $this->successResponse(
+            $comments,
+            'List of comments for item ID: ' . $item_id
+        );
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -65,7 +74,22 @@ class ChatController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = JWTAuth::parseToken()->authenticate();
+        $comment = Chat::find($id);
+
+        // Pastikan komentar ditemukan dan pengguna yang membuatnya
+        if (!$comment || $comment->user_id != $user->id) {
+            return $this->errorResponse('Comment not found or unauthorized.', 404);
+        }
+
+        $comment->update([
+            'message' => $request->message
+        ]);
+
+        return $this->successResponse(
+            $comment,
+            'Comment updated successfully.'
+        );
     }
 
     /**
@@ -73,6 +97,20 @@ class ChatController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = JWTAuth::parseToken()->authenticate();
+        $comment = Chat::find($id);
+
+        // Pastikan komentar ditemukan dan pengguna yang membuatnya
+        if (!$comment || $comment->user_id != $user->id) {
+            return $this->errorResponse('Comment not found or unauthorized.', 404);
+        }
+
+        // Hapus komentar
+        $comment->delete();
+
+        return $this->successResponse(
+            null,
+            'Comment deleted successfully.'
+        );
     }
 }
