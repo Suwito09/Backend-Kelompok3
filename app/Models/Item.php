@@ -17,18 +17,22 @@ class Item extends Model
         'updated_at'
     ];
 
+    protected $appends = ['image_url'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function return()
-    {
-        return $this->hasMany(ReturnModel::class);
-    }
-
     public function chat()
     {
         return $this->hasMany(Chat::class);
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return $this->image
+            ? url('storage/images/' . $this->image)
+            : null;
     }
 }
