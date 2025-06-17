@@ -9,7 +9,6 @@ class Item extends Model
     const TYPE_LOST = 'lost';
     const TYPE_FOUND = 'found';
     const STATUS_PENDING = 'pending';
-    const STATUS_RETURNED = 'returned';
     const STATUS_RESOLVED = 'resolved';
     protected $guarded = [
         'id',

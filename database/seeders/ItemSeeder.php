@@ -13,7 +13,7 @@ class ItemSeeder extends Seeder
     public function run(): void
     {
         $types = ['lost', 'found'];
-        $statuses = ['pending', 'returned', 'resolved'];
+        $statuses = ['pending', 'resolved'];
 
         $now = now();
         $items = [];
