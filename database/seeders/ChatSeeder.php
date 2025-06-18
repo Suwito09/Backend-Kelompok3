@@ -15,23 +15,15 @@ class ChatSeeder extends Seeder
     {
         $user_id = [1, 2, 3];
 
-        $now = now();
         $items = [];
 
         foreach ($user_id as $sender) {
-            foreach ($user_id as $receiver) {
-                if ($sender == $receiver) {
-                    continue;
-                }
 
                 $items[] = [
                     'item_id'       => 1,
-                    'sender_id'     => $sender,
-                    'receiver_id'   => $receiver,
-                    'message'       => "Test Message ({$sender} -> {$receiver})",
-                    'created_at'    => $now,
+                    'user_id'       => $sender,
+                    'message'       => "Test Message ({$sender})",
                 ];
-            }
         }
         DB::table('chats')->insert($items);
     }

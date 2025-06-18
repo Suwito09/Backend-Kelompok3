@@ -25,7 +25,7 @@ class ItemSeeder extends Seeder
                     'name'       => "Test Item ({$type}, {$status})",
                     'description'=> "Test Description ({$type}, {$status})",
                     'location'   => "Test Location ({$type}, {$status})",
-                    'image'      => "Test Image ({$type}, {$status})",
+                    'image'      => "test.jpg",
                     'type'       => $type,
                     'status'     => $status,
                     'created_at' => $now,
